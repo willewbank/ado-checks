@@ -12,13 +12,25 @@ $params = [HttpUtility]::ParseQueryString($Request.Body)
 $BuildId = $params["BuildId"]
 $Project = $params["Project"]
 $BaseUri = $params["BaseUri"]
+$AuthToken = $params["AuthToken"]
 
 $body = @{
     status = 'successful'
     BuildId = $BuildId
     Project = $Project
     BaseUri = $BaseUri
+    AuthToken = $AuthToken
 }
+$headers = @{
+    "Content-Type"= "application/json"
+    "Authorization" = $AuthToken
+}
+
+$uri = "$BaseUri$Project/_build/results?buildId=$BuildId&__rt=fps&__ver=2"
+Write-Host $uri
+$response = Invoke-WebRequest -Method Get -uri $uri -Headers $headers
+Write-Host $response 
+
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{

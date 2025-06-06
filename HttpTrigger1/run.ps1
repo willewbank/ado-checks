@@ -23,6 +23,5 @@ if ($name) {
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = [HttpStatusCode]::OK
     Body = $body
+    status = 'succesful'
 })
-
-Output-Result -status ([HttpStatusCode]::OK) -text "OKS"

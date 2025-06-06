@@ -7,20 +7,18 @@ param($Request, $TriggerMetadata)
 Write-Host "PowerShell HTTP trigger function processed a request."
 Write-Host $Request 
 
-# Interact with query parameters or the body of the request.
-$name = $Request.Query.Name
-if (-not $name) {
-    $name = $Request.Body.Name
-}
+$name = $Request.Body.name
+$BuildId = $Request.Body.BuildId
+$Project = $Request.Body.Project
+$BaseUri = $Request.Body.BaseUri
 
 $body = @{
-    text = "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
+    text = "Hello, $name. This HTTP triggered function executed successfully."
     status = 'successful'
     stuff = $Request.Body
-}
-
-if ($name) {
-    $body = "Hello, $name. This HTTP triggered function executed successfully."
+    BuildId = $BuildId
+    Project = $Project
+    BaseUri = $BaseUri
 }
 
 # Associate values to output bindings by calling 'Push-OutputBinding'.

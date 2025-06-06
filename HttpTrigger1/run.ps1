@@ -24,3 +24,5 @@ Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = [HttpStatusCode]::OK
     Body = $body
 })
+
+Output-Result -status ([HttpStatusCode]::OK) -text "OKS"

@@ -1,23 +1,20 @@
 using namespace System.Net
+using namespace System.Web
 
 # Input bindings are passed in via param block.
 param($Request, $TriggerMetadata)
 
 # Write to the Azure Functions log stream.
 Write-Host "PowerShell HTTP trigger function processed a request."
-Write-Host $Request.Body.name
 
-$requestBody = $Request.Body #| ConvertFrom-Json
+$params = [HttpUtility]::ParseQueryString($Request.Body)
 
-$name = $requestBody.name
-$BuildId = $requestBody.BuildId
-$Project = $requestBody.Project
-$BaseUri = $requestBody.BaseUri
+$BuildId = $params["BuildId"]
+$Project = $params["Project"]
+$BaseUri = $params["BaseUri"]
 
 $body = @{
-    text = "Hello, $name. This HTTP triggered function executed successfully."
     status = 'successful'
-    stuff = $Request.Body
     BuildId = $BuildId
     Project = $Project
     BaseUri = $BaseUri

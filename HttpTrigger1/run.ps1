@@ -13,7 +13,10 @@ if (-not $name) {
     $name = $Request.Body.Name
 }
 
-$body = "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
+$body = @{
+    text = "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
+    status = 'succesful'
+}
 
 if ($name) {
     $body = "Hello, $name. This HTTP triggered function executed successfully."
@@ -23,5 +26,4 @@ if ($name) {
 Push-OutputBinding -Name Response -Value ([HttpResponseContext]@{
     StatusCode = [HttpStatusCode]::OK
     Body = $body
-    status = 'succesful'
 })

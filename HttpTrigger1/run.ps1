@@ -5,7 +5,7 @@ param($Request, $TriggerMetadata)
 
 # Write to the Azure Functions log stream.
 Write-Host "PowerShell HTTP trigger function processed a request."
-Write-Host $Request 
+Write-Host $Request.Body.name
 
 $name = $Request.Body.name
 $BuildId = $Request.Body.BuildId

@@ -7,7 +7,7 @@ param($Request, $TriggerMetadata)
 Write-Host "PowerShell HTTP trigger function processed a request."
 Write-Host $Request.Body.name
 
-$requestBody = $Request.Body | ConvertFrom-Json
+$requestBody = ($Request | ConvertFrom-Json).Body
 
 $name = $requestBody.name
 $BuildId = $requestBody.BuildId

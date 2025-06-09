@@ -26,6 +26,8 @@ $headers = @{
     "Authorization" = $AuthToken
 }
 
+Write-Host $Request.Body
+
 $uri = "$BaseUri$Project/_build/results?buildId=$BuildId&__rt=fps&__ver=2"
 Write-Host $uri
 $response = Invoke-WebRequest -Method Get -uri $uri -Headers $headers
